@@ -43,22 +43,26 @@ Currently, the following scenarios are supported:
 
 There are two recommended ways to consume our `Jenkinsfile`. For both ways, you
 need to create a new pipeline job in Jenkins that [retrieves a pipeline from an
-SCM][jenkins-doc-pipelineFromSCM]. The location of the `Jenkinsfile` may
+SCM][jenkins-doc-pipelineFromSCM], but the location of the `Jenkinsfile` may
 differ:
 
-1. The `Jenkinsfile` can be copied into the source code repository of the
-   application. The `Jenkinsfile` is referenced in the pipeline job
-   configuration.
+1. The `Jenkinsfile` is located in the source code repository of the application.
 
-2. The `Jenkinsfile` can be kept in its own repository separate from the
-   application. In case you want to apply the `Jenkinsfile` to multiple
-   applications, this approach is beneficial since you only need to maintain the
-   `Jenkinsfile` in one place. You can consume the `Jenkinsfile` e.g. directly
-   from this repository on GitHub.com or from your own fork of it.
-   In this case there is a stub `Jenkinsfile` required in the source repository.
-   An ready-to-use stub pipeline script is available
-   [here](pipelines/utility/pipelineExecutor/Jenkinsfile)
-   ([docu](pipelines/utility/pipelineExecutor/README.md)).
+   In this case, the `Jenkinsfile` is referenced in the pipeline job configuration.
+
+2. The `Jenkinsfile` is located in its own repository separated from the application.
+
+   In this case, a stub `Jenkinsfile` is referenced in the pipeline job configuration.
+
+   The stub `Jenkinsfile` is required in the source code repository of the application.
+   An ready-to-use [stub pipeline](pipelines/utility/pipelineExecutor/Jenkinsfile) is available in this repository. 
+
+   Furthermore, the repository containing the `Jenkinsfile` must be maintained in the project configuration.
+
+   For further information, please check the [documentation](pipelines/utility/pipelineExecutor/README.md).
+
+   This approach is beneficial, in case you want to apply the `Jenkinsfile` to multiple applications, since you only need to maintain the
+   `Jenkinsfile` in one location.
 
 # Configuration
 
