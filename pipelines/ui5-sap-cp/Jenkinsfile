@@ -9,7 +9,7 @@
  *	license agreement you entered into with SAP.
 */
 
-@Library('piper-library-os') _
+@Library('jenkins-library-alejandra@environmentValidation') _
 
 node() {
 
@@ -33,14 +33,10 @@ node() {
   }
 
   stage("Build Fiori App"){
-    dir(SRC){
-      MTAR_FILE_PATH = mtaBuild buildTarget: 'NEO'
-    }
+    MTAR_FILE_PATH = mtaBuild buildTarget: 'NEO'
   }
   
   stage("Deploy Fiori App"){
-    dir(SRC){
-      neoDeploy script: this, archivePath: MTAR_FILE_PATH
-    }
+    neoDeploy script: this, archivePath: MTAR_FILE_PATH
   }
 }
