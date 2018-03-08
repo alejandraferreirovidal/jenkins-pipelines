@@ -9,38 +9,21 @@
  *	license agreement you entered into with SAP.
 */
 
-@Library('piper-library-os') _
+@Library('jenkins-library-alejandra@newConfig') _
 
 node() {
 
-  APP_PATH = 'src'
-  SRC = "${WORKSPACE}/${APP_PATH}"
-
   stage("Clone sources and setup environment"){
     deleteDir()
-    dir(APP_PATH) {
-      checkout scm
-      setupCommonPipelineEnvironment script: this
-    }
-  }
-
-  stage("Validate installations"){
-    echo '[INFO] Validating installation requirements.'
-    toolValidate tool: 'java'
-    toolValidate tool: 'mta'
-    toolValidate tool: 'neo'
-    echo '[INFO] The validation was successful.'
+    checkout scm
+    setupCommonPipelineEnvironment script: this
   }
 
   stage("Build Fiori App"){
-    dir(SRC){
-      MTAR_FILE_PATH = mtaBuild buildTarget: 'NEO'
-    }
+    MTAR_FILE_PATH = mtaBuild script: this
   }
   
   stage("Deploy Fiori App"){
-    dir(SRC){
-      neoDeploy script: this, archivePath: MTAR_FILE_PATH
-    }
+    neoDeploy script: this, archivePath: MTAR_FILE_PATH
   }
 }
